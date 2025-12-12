@@ -1,17 +1,19 @@
 import Image from "next/image";
 import React from "react";
 
+interface ColorfulColumnProps {
+  color: string;
+  bottom: string;
+  right: string;
+  zIndex?: string;
+}
+
 const ColorfulColumn = ({
   color,
   right,
   bottom,
   zIndex,
-}: {
-  color: string;
-  bottom: string;
-  right: string;
-  zIndex?: string;
-}) => {
+}: ColorfulColumnProps) => {
   return (
     <div
       className="absolute"
@@ -20,6 +22,7 @@ const ColorfulColumn = ({
         bottom: `${bottom}px`,
       }}
     >
+      {/* Colored Column */}
       <div
         className={`rotate-y-52 skew-y-22 overflow-hidden relative`}
         style={{
@@ -37,6 +40,8 @@ const ColorfulColumn = ({
           src="/column.png"
         />
       </div>
+
+      {/* Black Reflected Column */}
       <div className="absolute -bottom-8.5 h-[180px] w-8 bg-black skew-y-33 right-10.5 border-r border-black rotate-x-180 z-10" />
     </div>
   );

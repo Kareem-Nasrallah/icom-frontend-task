@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/auth/RegisterForm";
 import {
   Card,
   CardContent,
@@ -8,9 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <Card className="register-form-box">
       <CardHeader className="m-auto text-center gap-0">
@@ -25,11 +24,11 @@ const page = () => {
           className="text-center w-fit m-auto text-accent-foreground/90 hover:text-primary"
           href="/login"
         >
-          Or you have an account already
+          Already have an account?
         </Link>
       </CardFooter>
     </Card>
   );
 };
 
-export default page;
+export default Page;

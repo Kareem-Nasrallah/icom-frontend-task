@@ -1,4 +1,4 @@
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/auth/LoginForm";
 import {
   Card,
   CardContent,
@@ -8,9 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <Card className="login-form-box">
       <CardHeader className="m-auto text-center gap-0">
@@ -32,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

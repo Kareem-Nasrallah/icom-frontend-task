@@ -9,9 +9,10 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("user");
 
-    const isLoggedIn = user !== null && user !== "undefined";
+    const isLoggedIn =
+      storedUser && storedUser !== null && storedUser !== "undefined";
 
     if (!isLoggedIn) {
       router.replace("/login");

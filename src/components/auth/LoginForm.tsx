@@ -1,8 +1,8 @@
 "use client";
 
-import InputField from "@/components/InputField";
+import InputField from "@/components/common/InputField";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaType } from "@/lib/validations/login.schema";

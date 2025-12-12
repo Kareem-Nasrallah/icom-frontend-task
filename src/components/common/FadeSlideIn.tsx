@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-const AnimationTitle = ({
+const FadeSlideIn = ({
   duration,
   children,
 }: {
@@ -16,11 +16,10 @@ const AnimationTitle = ({
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: duration ?? 0.7, ease: "easeOut" }}
-      className="text-[40px] font-light italic text-main"
     >
       {children}
     </motion.div>
   );
 };
 
-export default AnimationTitle;
+export default FadeSlideIn;

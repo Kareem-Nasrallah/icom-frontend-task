@@ -1,7 +1,7 @@
-import AuthGuard from "@/components/AuthGuard";
-import Advertisement from "@/components/Advertisement";
-import IconImage from "@/components/IconImage";
-import AnimationTitle from "@/components/AnimationTitle";
+import AuthGuard from "@/components/auth/AuthGuard";
+import Advertisement from "@/components/home/Advertisement";
+import IconImage from "@/components/home/IconImage";
+import FadeSlideIn from "@/components/common/FadeSlideIn";
 
 export default function Home() {
   return (
@@ -9,27 +9,29 @@ export default function Home() {
       <div className="relative">
         <main className="py-20 mx-2 sm:ms-10 md:ms-16 xl:ms-[100px] mt-[68px] flex flex-col gap-6">
           <div>
-            <AnimationTitle duration={0.5}>
-              <span className="font-semibold text-black text-[40px] linhi leading-[135%]">
+            <FadeSlideIn duration={0.5}>
+              <span className="font-semibold text-[40px] linhi leading-[135%]">
                 Discover The
               </span>
-            </AnimationTitle>
-            <AnimationTitle duration={0.8}>
+            </FadeSlideIn>
+            <FadeSlideIn duration={0.8}>
               <h1 className="font-light italic block text-[40px] text-main  leading-[120%]">
                 Newest Real Estate Offerings
               </h1>
-            </AnimationTitle>
-            <AnimationTitle duration={1.1}>
-              <p className="text-xl leading-[150%] text-black">
-                Stay ahead with our newest real estate oppertunities .
+            </FadeSlideIn>
+            <FadeSlideIn duration={1.1}>
+              <p className="text-xl leading-[150%]">
+                Stay ahead with our newest real estate opportunities .
               </p>
-            </AnimationTitle>
+            </FadeSlideIn>
           </div>
+
           <div className="flex gap-6 overflow-x-scroll scrollbar-hide">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Advertisement i={i} key={i} />
+              <Advertisement index={i} key={i} />
             ))}
           </div>
+
           <div className="p-10 ms-auto w-[278px] ">
             <p className="font-semibold cursor-pointer w-fit">
               See All Properties{" "}
@@ -44,6 +46,7 @@ export default function Home() {
             </p>
           </div>
         </main>
+
         <IconImage />
       </div>
     </AuthGuard>

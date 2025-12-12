@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
@@ -6,12 +8,12 @@ const NotFound = () => {
         The page you're looking for doesn't exist.
       </p>
 
-      <a
+      <Link
         href="/"
         className="mt-8 px-6 py-3 rounded-xl bg-main text-white font-medium hover:bg-red-800 hover:scale-105 transition"
       >
         Back to Home
-      </a>
+      </Link>
     </div>
   );
 };

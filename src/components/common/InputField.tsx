@@ -1,7 +1,8 @@
-"use clinet";
+"use client";
+
 import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { FieldError } from "react-hook-form";
+import { Input } from "../ui/input";
+import { FieldError, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 
 const InputField = ({
@@ -16,8 +17,8 @@ const InputField = ({
   id: string;
   name: string;
   type: "password" | "text" | "email";
-  register: any;
-  watch: any;
+  register: UseFormRegister<any>;
+  watch: UseFormWatch<any>;
   error?: FieldError;
   className?: string;
 }) => {
@@ -25,7 +26,7 @@ const InputField = ({
   const [isVisible, setIsVisible] = useState(false);
   return (
     <div
-      className={className + " relative group" + (error ? " mb-5" : " mb-6")}
+      className={`relative group ${className ?? ""} ${error ? "mb-5" : "mb-6"}`}
     >
       <label
         className={`p-1 cursor-text transition-all duration-300 text-base absolute top-2 start-3 text-slate-400 group-focus-within:-top-4 group-focus-within:text-sm group-focus-within:bg-background z-10 ${

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 import { Loader2 } from "lucide-react";
 import {
@@ -11,57 +11,52 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import AuthGuard from "@/components/AuthGuard";
-import AnimationTitle from "@/components/AnimationTitle";
+import AuthGuard from "@/components/auth/AuthGuard";
+import FadeSlideIn from "@/components/common/FadeSlideIn";
 
-const page = () => {
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  company: { name: string };
+}
+
+const Page = () => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState<"name" | "email" | "company">(
     "name"
   );
 
-  const { data, isLoading, isError, error } = useUsers();
+  const { data, isLoading, isError } = useUsers();
 
-  let filteredUsers = data;
+  // Filter users based on search text and searchBy option
+  const filterUsers = (
+    users: User[] = [],
+    search: string,
+    searchBy: string
+  ) => {
+    const key = searchBy === "company" ? "company.name" : searchBy;
 
-  switch (searchBy) {
-    case "name":
-      filteredUsers = data?.filter((user: any) =>
-        user.name.toLowerCase().includes(search.toLowerCase())
-      );
-      break;
-    case "email":
-      filteredUsers = data?.filter((user: any) =>
-        user.email.toLowerCase().includes(search.toLowerCase())
-      );
-      break;
-    case "company":
-      filteredUsers = data?.filter((user: any) =>
-        user.company.name.toLowerCase().includes(search.toLowerCase())
-      );
-      break;
-  }
+    return users.filter((user) => {
+      const value =
+        key === "company.name" ? user.company.name : (user as any)[key];
+
+      return value.toLowerCase().includes(search.toLowerCase());
+    });
+  };
+
+  const filteredUsers = filterUsers(data, search, searchBy);
 
   return (
     <AuthGuard>
-      <div
-        className="max-w-7xl mx-auto p-6 sm:mx-10 "
-        onClick={() =>
-          console.log(
-            "data: ",
-            data,
-            "isLoading: ",
-            isLoading,
-            "error: ",
-            error
-          )
-        }
-      >
-        <AnimationTitle>
-          <h1 className="text-3xl font-bold mb-4 text-main">Users List</h1>
-        </AnimationTitle>
+      <div className="mx-auto p-6 sm:mx-10 ">
+        <FadeSlideIn>
+          <h1 className="text-3xl font-bold mb-4 text-main ms-8 sm:ms-0">
+            Users List
+          </h1>
+        </FadeSlideIn>
         {/* Search Input */}
-        <div className="sticky top-5 bg-background z-10">
+        <div className="sticky top-5 bg-background z-10 mx-5 sm:mx-0">
           <input
             type="text"
             placeholder={`Search by ${searchBy}...`}
@@ -71,7 +66,7 @@ const page = () => {
           />
 
           <Select
-            defaultValue={searchBy}
+            value={searchBy}
             onValueChange={(value: "name" | "email" | "company") =>
               setSearchBy(value)
             }
@@ -105,7 +100,7 @@ const page = () => {
 
         {/* Users List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredUsers?.map((user: any) => (
+          {filteredUsers?.map((user: User) => (
             <div
               key={user.id}
               className="border p-4 rounded-lg shadow-sm bg-card scale-95 hover:bg-blue-200 dark:hover:bg-blue-900 hover:scale-100 transition-all duration-200 hover:shadow-xl"
@@ -131,4 +126,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

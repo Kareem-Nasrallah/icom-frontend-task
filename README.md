@@ -103,12 +103,18 @@ A simple LocalStorage-based authentication system:
 ---
 
 ## 📁 Project Structure
-
 src/
-├── app/
-├── components/
-├── hooks/
-└── lib/
+├── app/              # Next.js App Router pages 
+├── components/       # Reusable UI components
+│   ├── common/       # Shared building blocks (inputs, icons, headings, etc.)
+│   ├── auth/         # Login / Register / AuthGuard
+│   ├── layout/       # Navbar, theme menu...
+│   └── home/         # Home-specific UI elements
+├── hooks/            # Custom hooks
+├── lib/
+│   ├── api/          # API logic (fetchers, mutations...)
+│   ├── validations/  # Zod schemas
+│   └── utils.ts      # Helper functions
 
 ---
 
