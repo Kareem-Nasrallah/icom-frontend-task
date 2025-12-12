@@ -2,30 +2,28 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
-export default function AuthGuard({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
 
-    if (!user) {
-      router.replace("/login"); // رجّعه للوجين
+    const isLoggedIn = user !== null && user !== "undefined";
+
+    if (!isLoggedIn) {
+      router.replace("/login");
     } else {
       setLoading(false);
     }
   }, [router]);
 
-  // أثناء الشيك – متعرضش الصفحة
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-        Loading...
+        <Loader2 size={60} className="animate-spin text-main" />
       </div>
     );
   }

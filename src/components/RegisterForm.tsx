@@ -40,9 +40,13 @@ const RegisterForm = () => {
 
   const { mutate, isPending, data } = useMutation({
     mutationFn: registerUser,
-    onSuccess: () => {
-      localStorage.setItem("user", JSON.stringify(data));
-      router.push("/users");
+    onSuccess: (result) => {
+      const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+      const updatedUsers = [...storedUsers, result];
+
+      localStorage.setItem("user", JSON.stringify(result));
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
       router.push("/");
       return toast.success("Account created successfully!");
     },

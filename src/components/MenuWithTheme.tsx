@@ -4,16 +4,27 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useRouter, usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 export default function MenuWithTheme() {
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    router.push("/login");
+    setOpen(false);
+  };
+  console.log(pathname)
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 fixed top-4 left-4 z-50 bg-main/80 text-white rounded-md"
+        className={`p-2 fixed top-4  z-50 bg-main/80 text-white rounded-md transition-all duration-300 ${pathname === "/login" || pathname === "/register" ? "-left-full" : "left-4"}`}
       >
         <Menu size={20} className="cursor-pointer" />
       </button>
@@ -39,7 +50,7 @@ export default function MenuWithTheme() {
         <nav className="flex flex-col gap-4">
           <Link
             href="/"
-            className="text-lg font-medium text-black dark:text-white hover:text-primary"
+            className="text-lg font-medium text-black dark:text-white hover:text-main"
             onClick={() => setOpen(false)}
           >
             Home
@@ -47,7 +58,7 @@ export default function MenuWithTheme() {
 
           <Link
             href="/users"
-            className="text-lg font-medium text-black dark:text-white hover:text-primary"
+            className="text-lg font-medium text-black dark:text-white hover:text-main"
             onClick={() => setOpen(false)}
           >
             Users
@@ -57,7 +68,7 @@ export default function MenuWithTheme() {
         <div className="mt-10 pt-5 border-t border-neutral-300 dark:border-neutral-700">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex items-center gap-3 text-black dark:text-white text-lg cursor-pointer hover:text-primary"
+            className="flex items-center gap-3 text-black dark:text-white text-lg cursor-pointer hover:text-main"
           >
             {theme === "dark" ? (
               <>
@@ -70,6 +81,12 @@ export default function MenuWithTheme() {
             )}
           </button>
         </div>
+        <Button
+          onClick={handleLogout}
+          className="w-full mt-[calc(100vh-310px)] block bg-red-800 hover:bg-red-700 text-white"
+        >
+          Logout
+        </Button>
       </div>
     </>
   );

@@ -7,7 +7,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-poppins: var(--font-poppins);
-  /* --font-cairo: var(--font-cairo); */
   --color-main: #b12028;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -101,7 +100,7 @@
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(53.759% 0.14126 262.791);
+  --card: oklch(23.965% 0.10164 260.701);
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(53.759% 0.14126 262.791);
   --popover-foreground: oklch(0.984 0.003 247.858);
@@ -152,36 +151,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* toaster */
 .toaster [data-type="success"] {
   --normal-bg: #d1fae5;
   --normal-text: #065f46;
   --normal-border: #a7f3d0;
 }
-
-/* ERROR */
 .toaster [data-type="error"] {
   --normal-bg: #fee2e2;
   --normal-text: #991b1b;
   --normal-border: #fecaca;
 }
 
-
+/* Advertisement Scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 @media (min-width:1024px) {
  .scrollbar-hide::-webkit-scrollbar {
     display: block;
     width: 8px;
     height: 8px;
   }
-
   .scrollbar-hide {
     scrollbar-width: thin;
     -ms-overflow-style: auto;

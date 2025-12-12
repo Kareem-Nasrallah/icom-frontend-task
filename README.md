@@ -108,9 +108,7 @@ src/
 ├── app/
 ├── components/
 ├── hooks/
-├── lib/
-├── styles/
-└── public/
+└── lib/
 
 ---
 

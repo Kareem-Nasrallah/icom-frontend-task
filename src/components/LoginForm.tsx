@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchemaType } from "@/lib/validations/login.schema";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -28,19 +29,22 @@ const LoginForm = () => {
     setServerError("");
 
     try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/users/1");
+      const storedUsers = localStorage.getItem("users");
+      const users = storedUsers ? JSON.parse(storedUsers) : [];
 
-      if (!res.ok) {
+      const user = users.find((u: any) => u.email === data.email);
+
+      if (!user || user.password !== data.password) {
         throw new Error("Invalid credentials");
       }
-
-      const user = await res.json();
 
       localStorage.setItem("user", JSON.stringify(user));
 
       router.push("/");
+      return toast.success("you logedin successfully!");
     } catch (err: any) {
       setServerError("Email or password is incorrect.");
+      return toast.error("Email or password is incorrect.");
     } finally {
       setLoading(false);
     }
@@ -48,11 +52,6 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
-      {serverError && (
-        <p className="text-red-600 text-center">{serverError}</p>
-      )}
-
       <InputField
         id="email"
         name="Email"
@@ -71,7 +70,12 @@ const LoginForm = () => {
         error={errors.password}
       />
 
-      <Button className="w-full text-lg" size="lg" type="submit" disabled={loading}>
+      <Button
+        className="w-full text-lg"
+        size="lg"
+        type="submit"
+        disabled={loading}
+      >
         {loading ? (
           <div className="flex items-center gap-2">
             <Loader2 className="h-5 w-5 animate-spin" /> Logging in...
@@ -80,6 +84,9 @@ const LoginForm = () => {
           "Login"
         )}
       </Button>
+      {serverError && (
+        <p className="text-red-600 text-sm text-center">{serverError}</p>
+      )}
     </form>
   );
 };
